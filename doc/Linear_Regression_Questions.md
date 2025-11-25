@@ -28,18 +28,18 @@ The intercept is the model’s prediction when all features are zero. It represe
 
 * Object Function: $\hat{Y} = w_1X_1+ w_2X_2 + ....+ w_nX_n + b$
 * Loss Function: $J(w) = \frac{1}{2n}(y-Xw)^T(y-Xw)$
-    Take the gradient w.r.t $w$:
+    
+    - Take the gradient w.r.t $w$:
         $$\nabla_w J(w) = \frac{1}{2n} \cdot 2 X^T(Xw - y) = \frac{1}{n} X^T(Xw - y)$$
     
-    Set gradient to zero at the optimum:
-        $$X^T(Xw-y)=0$$
+    - Set gradient to zero at the optimum:
+        $$X^T(Xw-y)=0 $$
+        $$X^{T}Xw = X^Ty $$
 
-        $$X^{T}Xw = X^Ty$$
-
-* Normal Equation: $w = (X^{-T}X)^{-1}X^{T}y
+* Normal Equation: $w = (X^{-T}X)^{-1}X^{T}y$
 
 
-#### 2.	Why does the normal equation require X^TX to be invertible?
+#### 2.	Why does the normal equation require $X^TX$ to be invertible?
 The normal equation is:
 
 $$X^T X w = X^T y$$
@@ -111,8 +111,8 @@ $$\sum_{i=1}^n w_i\, (y_i - \hat{y}_i)^2$$
 This is used when errors have different variances (heteroscedasticity). Observations with lower variance (more reliable data) are given higher weight, and noisy points get lower weight.
 
 In short:
-	•	OLS: assumes constant error variance
-	•	WLS: allows varying error variance and gives more trust to high-quality observations
+* OLS: assumes constant error variance
+* WLS: allows varying error variance and gives more trust to high-quality observations
 
 
 
