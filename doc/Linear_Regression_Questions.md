@@ -117,27 +117,84 @@ In short:
 
 
 ## C. Practical & ML Engineering
-	1.	Why do we need feature scaling for linear regression?
-	2.	How do outliers affect linear regression? How do you fix it?
-	3.	When would you choose gradient descent over the normal equation?
-	4.	How do you regularize linear regression?
-(L1, L2, ElasticNet — and when to use each)
-	5.	How do you detect overfitting in linear regression?
-	6.	How do you handle categorical variables?
-	7.	Suppose your model is underperforming — what are the first 3 things you check?
+#### 1.	Why do we need feature scaling for linear regression?
+We need feature scaling (standardization or min–max) in linear regression mainly to make optimization stable and efficient, especially when using gradient descent. If different features have very different scales (e.g., age = 30 vs. income = 80,000), then:
+* The loss surface becomes elongated rather than nicely round.
+* Gradient descent takes tiny steps in some directions and huge steps in others.
+* This leads to slow convergence, oscillation, or even divergence.
+* The learning rate becomes hard to tune.
 
 
-D. Code / Implementation
-	1.	Implement linear regression using gradient descent.
-	2.	Why might gradient descent fail to converge?
-	3.	How do you vectorize the gradient descent update?
-	4.	Compare your implementation to scikit-learn’s.
+#### 2.	How do outliers affect linear regression? How do you fix it?
+Outliers strongly distort linear regression because OLS uses squared errors. Squaring amplifies large residuals, so even a single extreme point can dramatically pull the regression line toward itself, causing:
+* Biased coefficients
+* Large prediction errors
+* High variance in the model
+
+To fix this issue, we can
+* Use robust regression such as L1 loss, Huber loss
+* Remove outliers
+* Transform the target or features using log, sqrt, or Box-Cox transformation to reduce skew and make residuals more stable
+* User regularization such as Ridge or ElasticNet to reduce coefficient instability.
 
 
-🔥 Advanced Linear Regression Questions
-	1.	Why is Ridge Regression equivalent to MAP with a Gaussian prior?
-	2.	Why does Lasso lead to sparse solutions? (Geometry + L1 norm)
-	3.	Explain the bias–variance trade-off in linear regression.
-	4.	Why does linear regression fail in high dimensions?
-	5.	What is the difference between R² and Adjusted R²?
-	6.	How does linear regression behave with correlated errors?
+#### 3.	When would you choose gradient descent over the normal equation?
+Use gradient descent when data is large, high-dimensional, or doesn’t fit in memory, or when you need iterative, flexible optimization. The normal equation is only practical for small datasets with few features.
+
+
+#### 4.	How do you regularize linear regression? (L1, L2, ElasticNet — and when to use each)
+* L2 Regularization (Ridge Regression): shrink weights → stable; use for multicollinearity.
+Adds a squared-weights penalty: $J(w) = \|y - Xw\|^2 + \lambda \|w\|_2^2$
+It shrinks coefficients smoothly, handles multicollinearity well, and reduces variance without forcing coefficients to zero
+
+* L1 Regularization (Lasso Regression): zero out weights → feature selection.
+Adds an absolute-value penalty: $J(w) = \|y - Xw\|^2 + \lambda \|w\|_1$
+It forces some coefficients exactly to zero (feature selection), produces sparse models
+
+* ElasticNet (L1 + L2): mix of both → good for correlated, high-dimensional data.
+Combines both:$J(w) = \|y - Xw\|^2 + \lambda_1 \|w\|_1 + \lambda_2 \|w\|_2^2$
+
+It balances sparsity and stability, and works well when features are correlated.
+
+
+#### 5.	How do you detect overfitting in linear regression?
+Overfitting appears when the model fits the training data well but generalizes poorly. Key signs:
+1.	Training error is low, test error is high
+2.	Large gap in $R^2$ or MSE between train and test 
+3.	Residual patterns differ across datasets: Residuals on the training set look random, but on the test set show structure.
+4.	Coefficients are extremely large: Indicates the model is fitting noise or multicollinearity.
+5.	Cross-validation performance fluctuates widely: Inconsistent results across folds signal instability.
+6.	Too many features relative to samples: “p >> n” regimes almost guarantee overfitting unless you regularize.
+
+
+#### 6.	How do you handle categorical variables?
+You handle categorical variables in linear regression by converting them into numeric representations that the model can understand while preserving their meaning.
+1. One-hot encoding:  nominal features
+2. Ordinal encoding: ordered categories
+3. Target / Mean encoding: high0cardinality variables
+4. Embeddings
+
+Always apply the same encoding to training and test data, and avoid creating dummy trap issues in linear regression by dropping one category.
+
+
+#### 7.	Suppose your model is underperforming — what are the first 3 things you check?
+First check data, then features, then model fit—in that order.
+1. Data quality and preprocessing: incorrect labels, outliers, missing values, wrong feature scaling
+2. Feature issues: Multicollinearity, irrelevant or missing key features, categorical variables improperly encoded
+3. Model fit and evaluation: Compare train vs. test performance:
+
+
+## D. Code / Implementation
+#### 1.	Implement linear regression using gradient descent.
+#### 2.	Why might gradient descent fail to converge?
+#### 3.	How do you vectorize the gradient descent update?
+#### 4.	Compare your implementation to scikit-learn’s.
+
+
+## 🔥 Advanced Linear Regression Questions
+#### 1.	Why is Ridge Regression equivalent to MAP with a Gaussian prior?
+#### 2.	Why does Lasso lead to sparse solutions? (Geometry + L1 norm)
+#### 3.	Explain the bias–variance trade-off in linear regression.
+#### 4.	Why does linear regression fail in high dimensions?
+#### 5.	What is the difference between R² and Adjusted R²?
+#### 6.	How does linear regression behave with correlated errors?
