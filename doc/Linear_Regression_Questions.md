@@ -1,23 +1,25 @@
 ## A. Conceptual & Intuition
 
-* 1.	What is linear regression and what assumptions does it make?
-    Linear Regression is a supervised learning method that models a continuous target as a linear combination of input features, finding the best-fit line (or hyperplane) that minimizes the sum of squared errors between predicted and actual values.
+##### 1.	What is linear regression and what assumptions does it make?
 
-    The key assumptions are: (1) linear relationship between predictors and target, (2) independent errors, (3) constant variance of errors, (4) no multicollinearity, and (5) normally distributed residuals for inference. Violations of these assumptions affect coefficient stability, interpretability, and statistical validity.”
+Linear Regression is a supervised learning method that models a continuous target as a linear combination of input features, finding the best-fit line (or hyperplane) that minimizes the sum of squared errors between predicted and actual values.
+
+The key assumptions are: (1) linear relationship between predictors and target, (2) independent errors, (3) constant variance of errors, (4) no multicollinearity, and (5) normally distributed residuals for inference. Violations of these assumptions affect coefficient stability, interpretability, and statistical validity.”
 
 
-* 2.	What does the model actually learn?
-    Linear regression learns the weight vector and bias that define the best-fitting linear relationship between features and the target. The weights represent how much each feature influences the output, and they are chosen to minimize the squared error. 
+##### 2.	What does the model actually learn?
+Linear regression learns the weight vector and bias that define the best-fitting linear relationship between features and the target. The weights represent how much each feature influences the output, and they are chosen to minimize the squared error. 
 
-* 3.	Why do we use least squares? Is it the only choice?
-    Least squares is used because it is mathematically convenient, computationally efficient, statistically optimal under reasonable assumptions, and has a closed-form solution. It is not the only choice—different loss functions like L1, Huber, or quantile loss are used when we want robustness to outliers, different noise assumptions, or different prediction objectives.
-    ** A closed-form solution is an explicit formula that computes the answer directly, without requiring iteration or numerical optimization.**
+##### 3.	Why do we use least squares? Is it the only choice?
+Least squares is used because it is mathematically convenient, computationally efficient, statistically optimal under reasonable assumptions, and has a closed-form solution. It is not the only choice—different loss functions like L1, Huber, or quantile loss are used when we want robustness to outliers, different noise assumptions, or different prediction objectives.
 
-* 4.	What does the coefficient $w_i$ mean in a linear regression model?
-    The coefficien represents how much the predicted output changes when feature $x_i$ increases by 1 unit, holding all other features constant. It’s the slope of the model along that feature’s direction. Positive weights increase the target, negative weights decrease it, and zero weights mean no effect. This interpretation breaks down if features are highly correlated.
+** A closed-form solution is an explicit formula that computes the answer directly, without requiring iteration or numerical optimization.**
 
-* 5.	How do you interpret the intercept?
-    The intercept is the model’s prediction when all features are zero. It represents the baseline level of the target before considering the effect of any feature. Its interpretability depends on whether ‘zero’ is meaningful for the features, and after standardization, the intercept represents the prediction at the mean of the data.
+##### 4.	What does the coefficient $w_i$ mean in a linear regression model?
+The coefficien represents how much the predicted output changes when feature $x_i$ increases by 1 unit, holding all other features constant. It’s the slope of the model along that feature’s direction. Positive weights increase the target, negative weights decrease it, and zero weights mean no effect. This interpretation breaks down if features are highly correlated.
+
+##### 5.	How do you interpret the intercept?
+The intercept is the model’s prediction when all features are zero. It represents the baseline level of the target before considering the effect of any feature. Its interpretability depends on whether ‘zero’ is meaningful for the features, and after standardization, the intercept represents the prediction at the mean of the data.
 
 
 
