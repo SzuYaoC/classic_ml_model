@@ -13,6 +13,21 @@ class LogisticRegression:
 
         self._weights = None
         self._bias = None
+        self._costs = []
+
+
+    @property
+    def weights(self):
+        return self._weights
+    
+    @property
+    def bias(self):
+        return self._bias
+    
+
+    @property
+    def costs(self):
+        return self._costs
 
     
     def fit(self, X, y):
@@ -33,6 +48,7 @@ class LogisticRegression:
         # 1. Initialize parameters
         self._weights = np.zeros(n_features)
         self._bias = 0.0
+        self._costs = []
 
 
         ## 2. Compute cost (with clipping for numerical stability)
@@ -47,13 +63,13 @@ class LogisticRegression:
 
 
         # 2. Gradient Descent
-        costs = []
         for ep in range(self.n_iters):
             z = np.dot(X, self._weights) + self._bias
             y_pred = sigmoid(z)
 
             ## calculate Cost (Log loss)
             cost = -1 / n_samples * np.sum(y * np.log(y_pred) + (1-y) * np.log(1-y_pred))
+            self._costs.append(cost)  
 
             ## derivative of cost with respect to weights (dw)
             dw = (1 / n_samples) * X.T @ (y_pred- y)
@@ -67,7 +83,6 @@ class LogisticRegression:
 
 
             if ep % 100 == 0 :
-                costs.append(cost)  
                 if self.verbose == True:
                     print(f"Cost after iteration {ep}: {cost}")
 
