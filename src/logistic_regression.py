@@ -55,8 +55,16 @@ class LogisticRegression:
             ## calculate Cost (Log loss)
             cost = -1 / n_samples * np.sum(y * np.log(y_pred) + (1-y) * np.log(1-y_pred))
 
-            ## Gradient Descent helper
-            self.loss_function(X , y, y_pred)
+            ## derivative of cost with respect to weights (dw)
+            dw = (1 / n_samples) * X.T @ (y_pred- y)
+
+            ## derivative of cost with respect to bias (db)
+            db = (1 / n_samples) * np.sum(y_pred-y)
+
+            ## update parameters 
+            self._weights -= self.lr * dw
+            self._bias -= self.lr * db
+
 
             if ep % 100 == 0 :
                 costs.append(cost)  
@@ -78,28 +86,5 @@ class LogisticRegression:
         y_pred = self.predict_proba(X)
         return (y_pred >= threshold).astype(int)
     
-
-    ## helper
-    def loss_function(self, X, y, pred_y):
-        """
-        Output
-        ---- 
-        cost (int)
-        """ 
-
-        assert pred_y.shape == y.shape, "Predicted Label and Truth Label have different sizes."
-
-        n_samples = len(y)
-        
-        ##  derivative of cost with respect to weights (dw)
-        dw = (1 / n_samples) * X.T @ (pred_y- y)
-
-        ## derivative of cost with respect to bias (db)
-        db = (1 / n_samples) * np.sum(pred_y-y)
-
-        ## update parameters 
-        self._weights -= self.lr * dw
-        self._bias -= self.lr * db
-
 
 
