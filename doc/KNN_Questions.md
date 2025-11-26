@@ -1,4 +1,4 @@
-# 1. Conceptual Fundamentals (Core)
+# A. Conceptual Fundamentals (Core)
 
 1. What is KNN and how does it work?
 
@@ -21,7 +21,8 @@
 → Small K → high variance; large K → high bias.
 
 
-# 2. Mathematics & Distance Metrics
+⸻
+# B. Mathematics & Distance Metrics
 
 6. What distance metrics can be used in KNN?
 
@@ -45,7 +46,7 @@
 
 ⸻
 
-# 3. Implementation & Complexity
+# C. Implementation & Complexity
 
 11. What is the training complexity of KNN?
 
@@ -73,9 +74,9 @@
 → Closer neighbors get higher weight.
 → Weight = 1/(distance + ε).
 
+⸻
 
-
-# 4. Practical Engineering Use Cases
+# D. Practical Engineering Use Cases
 
 17. How would you use KNN in a recommender system?
 
@@ -98,8 +99,8 @@
 → Not brute-force; ANN approximations (FAISS, Annoy, HNSW) are used.
 
 
-
-# 5. Troubleshooting / Edge Cases
+⸻
+# E. Troubleshooting / Edge Cases
 
 22. What happens if features are not scaled in KNN?
 
@@ -121,8 +122,9 @@
 
 → KNN struggles → need more expressive model.
 
+⸻
 
-# 6. Advanced / Research-Level Questions
+# F. Advanced / Research-Level Questions
 
 27. How does approximate nearest neighbor (ANN) differ from exact KNN?
 
@@ -149,7 +151,8 @@
 → For semantic search: embed → ANN index → top-k neighbors.
 
 
-# 7. Behavioral / System Design for Recommender Systems (KNN-specific)
+⸻
+# G. Behavioral / System Design for Recommender Systems (KNN-specific)
 
 33. Design an Amazon-style item-to-item recommender using KNN.
 
