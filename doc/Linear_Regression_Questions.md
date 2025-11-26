@@ -187,14 +187,43 @@ First check data, then features, then model fit—in that order.
 ## D. Code / Implementation
 #### 1.	Implement linear regression using gradient descent.
 #### 2.	Why might gradient descent fail to converge?
-#### 3.	How do you vectorize the gradient descent update?
-#### 4.	Compare your implementation to scikit-learn’s.
+Gradient descent fails to converge mainly due to 
+* An overly large learning rate, 
+* Unscaled features, 
+* Ill-conditioned data (Multicollinearity or near-linear dependence makes gradients unstable), 
+* Incorrect gradient calculations
+* Data issue (outliers, extreme values or incorrect labels)
 
 
 ## 🔥 Advanced Linear Regression Questions
-#### 1.	Why is Ridge Regression equivalent to MAP with a Gaussian prior?
-#### 2.	Why does Lasso lead to sparse solutions? (Geometry + L1 norm)
-#### 3.	Explain the bias–variance trade-off in linear regression.
-#### 4.	Why does linear regression fail in high dimensions?
-#### 5.	What is the difference between R² and Adjusted R²?
-#### 6.	How does linear regression behave with correlated errors?
+#### 1.	Explain the bias–variance trade-off in linear regression.
+The bias–variance trade-off explains why both overly simple and overly complex models perform poorly.
+* Bias is error from incorrect assumptions—an overly simple model that cannot capture the true relationship. High bias → underfitting.
+
+Example: fitting a straight line to a curved pattern.
+
+* Variance is error from sensitivity to small fluctuations in the training data. High variance → overfitting.
+
+Example: model parameters change wildly with different samples.
+
+* Trade-Off
+	* As model complexity increases → bias decreases but variance increases.
+	* As complexity decreases → variance decreases but bias increases.
+
+Linear regression manages this trade-off with regularization.
+
+
+#### 2.	Why does linear regression fail in high dimensions?
+Linear regression struggles in high dimensions because the geometry, statistics, and optimization all become unstable when the number of features is large relative to the number of samples.
+1. Multicollinearity explodes
+2. Overfitting becomes inevitable
+3. Variance of estimates blows up
+4. Interpretability collapses
+
+
+#### 3.	What is the difference between R² and Adjusted R²?
+* R²: measures explained variance but always increases with more features.
+* Adjusted R²: penalizes model complexity and only increases when a feature adds real predictive power.
+
+#### 4.	How does linear regression behave with correlated errors?
+With correlated errors, linear regression coefficients remain unbiased but become inefficient, and all statistical inference (standard errors, confidence intervals, p-values) becomes unreliable. You typically fix this by using GLS, adding missing predictors, or modeling temporal structure.
