@@ -2,7 +2,7 @@ import numpy as np
 from collections import Counter
 
 
-def euclidean_distance(self, p1, p2):
+def euclidean_distance(p1, p2):
     """
     sqrt of sum (p1 - p2) **2
     """
@@ -11,12 +11,23 @@ def euclidean_distance(self, p1, p2):
 
     return np.sqrt((np.sum(p1-p2)**2))
 
+
+def cosine_distance(p1, p2, eps=1e-9):
+    dot = float(np.dot(p1, p2))
+    norm1 = np.linalg.norm(p1)
+    norm2 = np.linalg.norm(p2)
+    denom = max(norm1 * norm2, eps)
+    cos_sim = dot / denom
+    # clip for numerical stability
+    cos_sim = np.clip(cos_sim, -1.0, 1.0)
+    return 1 - cos_sim
+
 class KNN:
-    def __init__(self, k: int =5):
+    def __init__(self, k: int =5, distance_metric: str ='cosine'):
         self.k = k
         self.X_train = None
         self.y_train = None
-
+        self.distance_metric = distance_metric
 
     def fit(self, X, y):
         
@@ -62,6 +73,54 @@ class KNN:
         most_comm = Counter(k_nei_labels).most_common(1)
         predicted_class = most_comm[0][0]
         return predicted_class
+    
+    def _compute_distance(self, p1, p2):
+        if self.distance_metric == "euclidean":
+            return euclidean_distance(p1, p2)
+        elif self.distance_metric == "cosine":
+            return cosine_distance(p1, p2)
+        else:
+            raise ValueError(f"Unsupported metric: {self.metric}")
+
+        
+
+
+
+    def kneighbors(self, X, k=None, return_distance=True):
+        if self.X_train is None:
+            raise ValueError("Model is not fitted yet.")
+        
+        X = np.asarray(X)
+        if X.ndim == 1:
+            X = X.reshape(1,-1)
+        
+        k = k or self.k
+        n_train = self.X_train.shape[0]
+        all_indices = np.arange(n_train)
+
+        all_distances = []
+        all_nei_indices= []
+        for x in X:
+            dists = []
+            for idx, x_train in enumerate(self.X_train):
+                dist = self._compute_distance(x_train, x)
+                dists.append((dist, idx))
+            dists.sort(key=lambda x: x[0])
+            k_nearest = dists[:k]
+
+            nei_dists = np.array([d for d, _ in k_nearest])
+            nei_indices = np.array([i for _, i in k_nearest])
+
+            all_distances.append(nei_dists)
+            all_nei_indices.append(nei_indices)
+        
+        distances_arr = np.vstack(all_distances)
+        idx_arr = np.vstack(all_nei_indices)
+        
+        if return_distance:
+            return distances_arr, idx_arr
+        else:
+            return idx_arr
 
 
 
