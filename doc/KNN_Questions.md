@@ -21,7 +21,7 @@
 → Small K → high variance; large K → high bias.
 
 
-⸻
+
 # B. Mathematics & Distance Metrics
 
 6. What distance metrics can be used in KNN?
@@ -44,7 +44,7 @@
 
 → Cross-validation; odd K for binary classification.
 
-⸻
+
 
 # C. Implementation & Complexity
 
@@ -74,7 +74,7 @@
 → Closer neighbors get higher weight.
 → Weight = 1/(distance + ε).
 
-⸻
+
 
 # D. Practical Engineering Use Cases
 
@@ -99,7 +99,7 @@
 → Not brute-force; ANN approximations (FAISS, Annoy, HNSW) are used.
 
 
-⸻
+
 # E. Troubleshooting / Edge Cases
 
 22. What happens if features are not scaled in KNN?
@@ -122,7 +122,7 @@
 
 → KNN struggles → need more expressive model.
 
-⸻
+
 
 # F. Advanced / Research-Level Questions
 
@@ -151,7 +151,7 @@
 → For semantic search: embed → ANN index → top-k neighbors.
 
 
-⸻
+
 # G. Behavioral / System Design for Recommender Systems (KNN-specific)
 
 33. Design an Amazon-style item-to-item recommender using KNN.
